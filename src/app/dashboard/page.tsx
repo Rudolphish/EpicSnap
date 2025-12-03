@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
+import { Navigation } from "@/components/navigation";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -441,13 +442,15 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-gray-100 p-4 md:p-8">
-      {/* ヘッダー */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-        <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">EpicSnap</h1>
-          <p className="text-gray-400">最近のアクティビティとクイックアクション</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-gray-100">
+      <Navigation />
+      <main className="p-4 md:p-8">
+        {/* ヘッダー */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">EpicSnap</h1>
+            <p className="text-gray-400">最近のアクティビティとクイックアクション</p>
+          </div>
         <div className="flex gap-3">
           <Button
             onClick={() => router.push("/albums/new")}
@@ -511,7 +514,6 @@ export default function DashboardPage() {
                 <p>アップロードされたスクリーンショットはありません</p>
                 <Button variant="link" className="mt-2 text-blue-400" onClick={() => setIsModalOpen(true)}>
                   <Upload className="mr-2 h-4 w-4" />
-                  今すぐアップロード
                 </Button>
               </div>
             )}
@@ -519,18 +521,15 @@ export default function DashboardPage() {
         </Card>
 
         {/* アクティビティ */}
-        <Card className="col-span-1 md:col-span-2 lg:col-span-1 bg-gray-800/50 backdrop-blur-sm border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">最近のアクティビティ</CardTitle>
-          </CardHeader>
-          <CardContent>{/* アクティビティ一覧のコンテンツ */}</CardContent>
-        </Card>
+
+        {/* アップロードモーダル */}
+        <UploadModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onUploadSuccess={fetchScreenshots}
+        />
       </div>
-
-      {/* アップロードモーダル */}
-      <UploadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onUploadSuccess={fetchScreenshots} />
-
-      {/* <UploadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onUploadSuccess={fetchScreenshots} user={user} /> */}
+      </main>
     </div>
   );
 }
