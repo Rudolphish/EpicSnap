@@ -7,7 +7,7 @@ type ToastProps = {
   className?: string;
 };
 
-type ToastActionElement = React.ReactElement;
+export type ToastActionElement = React.ReactElement;
 
 export function Toast({ children, className, ...props }: ToastProps) {
   return (
