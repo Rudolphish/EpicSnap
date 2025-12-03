@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-type ToastProps = {
+export type ToastProps = {
   children?: React.ReactNode;
   className?: string;
 };
