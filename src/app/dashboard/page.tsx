@@ -133,7 +133,7 @@ export default function DashboardPage() {
         .select("*")
         .eq("user_id", session.user.id)
         .order("created_at", { ascending: false })
-        .limit(8);
+        .limit(4);
 
       if (screenshotsError) throw screenshotsError;
 
@@ -222,18 +222,25 @@ export default function DashboardPage() {
         {/* アルバム一覧 */}
         <div>
           <h2 className="text-xl font-semibold mb-4">アルバム</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {albums.map((album) => (
-              <Card key={album.id} className="bg-[#2a3f5a] border-[#3d5568] hover:border-[#1a9fff] transition-colors">
-                <CardHeader className="p-4">
-                  <div className="flex items-center space-x-3">
-                    <Album className="h-5 w-5 text-[#1a9fff]" />
-                    <CardTitle className="text-lg font-semibold text-white">{album.title}</CardTitle>
-                  </div>
-                  <CardDescription className="text-gray-400">{album.screenshot_count || 0} 枚の画像</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+            {albums.length === 0 ? (
+              <div className="text-center py-16 bg-[#2a3f5a] rounded border border-[#3d5568] shadow-lg">
+                <h3 className="text-xl font-medium text-white mb-2">アルバムがありません</h3>
+                <p className="text-[#8f98a0] mb-6 max-w-md mx-auto">新しいアルバムを作成して、スクリーンショットを整理しよう</p>
+              </div>
+            ) : (
+              albums.map((album) => (
+                <Card key={album.id} className="bg-[#2a3f5a] border-[#3d5568] hover:border-[#1a9fff] transition-colors">
+                  <CardHeader className="p-4">
+                    <div className="flex items-center space-x-3">
+                      <Album className="h-5 w-5 text-[#1a9fff]" />
+                      <CardTitle className="text-lg font-semibold text-white">{album.title}</CardTitle>
+                    </div>
+                    <CardDescription className="text-gray-400">{album.screenshot_count || 0} 枚の画像</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </main>

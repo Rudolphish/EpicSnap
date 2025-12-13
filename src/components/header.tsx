@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
-import { Home, Image as ImageIcon, ChevronDown, LogOut, UserCog, CreditCard, ChevronRight, Plus, Upload } from "lucide-react";
+import { Home, Image as ImageIcon, ChevronDown, LogOut, UserCog, CreditCard, ChevronRight, Plus, Upload, BookMinus } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -160,23 +160,19 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[#3d5568] bg-[#171a21] shadow-sm">
-      <div className="container flex h-16 items-center justify-between px-4">
+      <div className="container flex h-16 items-center justify-between px-4 max-w-95/100">
         <div className="flex items-center space-x-6">
-          <Link href="/dashboard" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <span className="text-xl font-bold text-white">EpicSnap</span>
           </Link>
           <nav className="hidden md:flex items-center space-x-1">
             <NavLink href="/dashboard" icon={<Home className="h-4 w-4" />} label="ダッシュボード" currentPath={pathname} />
             <NavLink href="/screenshots" icon={<ImageIcon className="h-4 w-4" />} label="スクリーンショット" currentPath={pathname} />
+            <NavLink href="/albums" icon={<BookMinus className="h-4 w-4" />} label="アルバム" currentPath={pathname} />
           </nav>
         </div>
 
         <div className="flex items-center space-x-4">
-          <Button size="sm" className="bg-[#1a9fff] hover:bg-[#1a9fff]/90 text-white" onClick={() => setIsUploadModalOpen(true)}>
-            <Upload className="mr-1.5 h-4 w-4" />
-            アップロード
-          </Button>
-
           <div className="relative" ref={menuRef}>
             <button
               type="button"
