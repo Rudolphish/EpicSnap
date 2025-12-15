@@ -2,7 +2,7 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "destination": "/public/maintenance.html",
+      "destination": "/maintenance.html",
       "statusCode": 503
     }
   ]
